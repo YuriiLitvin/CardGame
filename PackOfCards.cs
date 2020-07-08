@@ -11,17 +11,18 @@ namespace CardGame
         {
             List<Card> cards = new List<Card>();
             var suits = Enum.GetNames(typeof(Suit));
-            var values = Enum.GetNames(typeof(Value));
+            var names = Enum.GetNames(typeof(Value));
+            var values = Enum.GetValues(typeof(Value));
 
             foreach (var suit in suits)
             {
-                foreach (var value in values)
+                for (int index = 0; index < names.Count(); index++)
                 {
                     cards.Add(
                     new Card()
                     {
-                        FullName = $"{value} of {suit}",
-                        Rate = (int) Value.Ace
+                        FullName = $"{names[index]} of {suit}",
+                        Rate = (int) values.GetValue(index)
                     }); 
                 }
             }
@@ -29,7 +30,7 @@ namespace CardGame
 
             foreach (var card in cards)
             {
-                Console.WriteLine(card.FullName);
+                Console.WriteLine(card.FullName + " " + card.Rate);
             }
             Console.ReadKey();
         }
