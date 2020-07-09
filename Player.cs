@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace CardGame
 {
-    class Player
+    public class Player
     {
         public string Name { get; set; }
-
+        public List<Card> PackOfCards { get; set; } = new List<Card>();
+        
         public void GetBottomCard() { }
 
         public void TakeCards() { }

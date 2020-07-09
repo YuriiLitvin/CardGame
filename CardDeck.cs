@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace CardGame
 {
-    class PackOfCards
+    class CardDeck
     {
-        //public Card Card { get; set; }
-        public void CreatePackOfCards() 
+        public Card Card { get; set; }
+        public List<Card> CreateCardDeck() 
         {
             List<Card> cards = new List<Card>();
             var suits = Enum.GetNames(typeof(Suit));
@@ -26,13 +26,13 @@ namespace CardGame
                     }); 
                 }
             }
-            //return cards;
+            return cards;
 
-            foreach (var card in cards)
-            {
-                Console.WriteLine(card.FullName + " " + card.Rate);
-            }
-            Console.ReadKey();
+            //foreach (var card in cards)
+            //{
+            //    Console.WriteLine(card.FullName + " " + card.Rate);
+            //}
+            //Console.ReadKey();
         }
 
     }

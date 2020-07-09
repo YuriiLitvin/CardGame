@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CardGame
 {
-    class Card
+    public class Card
     {
         public Suit Suit { get; }
 
@@ -15,12 +15,5 @@ namespace CardGame
         public string FullName { get; set; }
         
         public int Rate { get; set; }
-
-        //public Card()
-        //{
-            
-        //}
-
-    
     }
 }

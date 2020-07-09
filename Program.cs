@@ -6,10 +6,10 @@ namespace CardGame
     {
         static void Main(string[] args)
         {
-            //Game newGame = new Game();
-            //newGame.Start();
-            PackOfCards pack = new PackOfCards();
-            pack.CreatePackOfCards();
+            Game newGame = new Game();
+            newGame.DistributeCards();
+            //CardDeck pack = new CardDeck();
+            //pack.CreatePackOfCards();
         }
     }
 }
