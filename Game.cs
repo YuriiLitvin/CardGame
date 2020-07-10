@@ -13,9 +13,49 @@ namespace CardGame
 
         public void Start()
         {
-            
+            var game = new List<Card>();
+            var playersWithCards = DistributeCards();
+            var roundIndex = 1;
+            while (playersWithCards.Count > 1) 
+            {
+                Console.WriteLine("\nROUND" + roundIndex);
+
+                if (playersWithCards.Any(_ => _.PackOfCards.Count == 0))
+                {
+                    var losers = playersWithCards.Where(_ => _.PackOfCards.Count == 0)
+                                                 .Select(_ => _)
+                                                 .ToList();
+                    
+                    foreach (var loser in losers)
+                    {
+                        playersWithCards.Remove(loser);
+                        Console.WriteLine($"{loser.Name} left game");
+                    }
+                }
+
+                foreach (var player in playersWithCards)
+                {
+                    Console.Write(player.Name + "  ");
+                    var card = player.PackOfCards.First();
+                    Console.Write(card.FullName + "  ");
+                    Console.WriteLine($"Cards left {player.PackOfCards.Count}");
+                    game.Add(card);
+                    player.PackOfCards.Remove(card);
+                    
+                }
+                
+                roundIndex++;
+
+                var winCardRate = game.Max(_ => _.Rate);
+                var winCardIndex = game.FindIndex(_ => _.Rate == winCardRate);
+
+                var winner = playersWithCards[winCardIndex];
+                Console.WriteLine($"\n{winner.Name} win");
+                playersWithCards[winCardIndex].PackOfCards = winner.PackOfCards.Concat(game).ToList();
+                game.Clear();
+                Console.ReadKey();
+            }
         }
-       
         private List<Player> CreateList()
         {
             int playerMinCount = 2;
@@ -48,16 +88,16 @@ namespace CardGame
             return shuffledDeck;
         }
         
-        public void DistributeCards()
+        public List<Player> DistributeCards()
         {
             CardDeck newDeck = new CardDeck();
             var deck = newDeck.CreateCardDeck();
             var shuffledDeck = ShuffleCardDeck(deck);
-            var players = CreateList();
+            var playersWithCards = CreateList();
 
             while (shuffledDeck.Count != 0)
             {
-                foreach (var player in players)
+                foreach (var player in playersWithCards)
                 {
                     var card = shuffledDeck.First();
                     player.PackOfCards.Add(card);
@@ -70,16 +110,16 @@ namespace CardGame
                 }
 
             }
-            foreach (var player in players)
-            {
-                Console.WriteLine(player.Name);
-                foreach (var card in player.PackOfCards)
-                {
-                    Console.WriteLine(card.FullName + " " + card.Rate);
-                }
-            }
-            Console.ReadKey();
-        
+            //foreach (var player in playersWithCards)
+            //{
+            //    Console.WriteLine(player.Name);
+            //    foreach (var card in player.PackOfCards)
+            //    {
+            //        Console.WriteLine(card.FullName + " " + card.Rate);
+            //    }
+            //}
+            //Console.ReadKey();
+            return playersWithCards;
         }
     }   
    

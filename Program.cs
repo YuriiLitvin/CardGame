@@ -7,7 +7,7 @@ namespace CardGame
         static void Main(string[] args)
         {
             Game newGame = new Game();
-            newGame.DistributeCards();
+            newGame.Start();
             //CardDeck pack = new CardDeck();
             //pack.CreatePackOfCards();
         }

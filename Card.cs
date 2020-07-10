@@ -8,7 +8,7 @@ namespace CardGame
 {
     public class Card
     {
-        public Suit Suit { get; }
+        //public Suit Suit { get; }
 
         public Value Value { get; }
 

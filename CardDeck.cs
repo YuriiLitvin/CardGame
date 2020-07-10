@@ -28,11 +28,6 @@ namespace CardGame
             }
             return cards;
 
-            //foreach (var card in cards)
-            //{
-            //    Console.WriteLine(card.FullName + " " + card.Rate);
-            //}
-            //Console.ReadKey();
         }
 
     }
