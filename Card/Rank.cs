@@ -3,7 +3,7 @@
 
 namespace CardGame
 {
-    public enum Value
+    public enum Rank
     {
         Six = 6,
         Seven = 7,
