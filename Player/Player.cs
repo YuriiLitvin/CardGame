@@ -6,7 +6,7 @@ namespace CardGame
 {
     public class Player
     {
-        private List<Card> CardsInHand { get; set; } = new List<Card>();
+        private readonly List<Card> cardsInHand  = new List<Card>();
 
         public string Name { get; set; }
 
@@ -20,32 +20,32 @@ namespace CardGame
 
         private Card ShowTopCard() 
         {
-            var card = CardsInHand.FirstOrDefault();
-            Console.Write(card.Face);
+            var card = cardsInHand.FirstOrDefault();
+            Console.Write($"{card.Rank} of {card.Suit}");
             return card;
         }
 
         private Card GiveTopCard(Card card)
         {
-            Console.Write($"\tLeft {CardsInHand.Count} cards\n");
-            CardsInHand.Remove(card);
-            CardCount = CardsInHand.Count;
+            Console.Write($"\tLeft {cardsInHand.Count} cards\n");
+            cardsInHand.Remove(card);
+            CardCount = cardsInHand.Count;
             return card;
         } 
         
         public void TakeCards(Card card) 
         {
-            CardsInHand.Add(card);
-            CardCount = CardsInHand.Count;
+            cardsInHand.Add(card);
+            CardCount = cardsInHand.Count;
         }
         
-        public void TakeCards(List<Card> gameSet)
+        public void TakeCards(IEnumerable<Card> gameSet)
         {
             foreach (var card in gameSet)
             {
-                CardsInHand.Add(card);
+                cardsInHand.Add(card);
             }
-            CardCount = CardsInHand.Count;
+            CardCount = cardsInHand.Count;
         }
     
     }

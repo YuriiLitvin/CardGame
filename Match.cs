@@ -10,30 +10,29 @@ namespace CardGame
 
         public void Start()
         {
-            var currentGame = new Dictionary<Card,Player>();
+            var table = new Dictionary<Card,Player>();
             var dealer = new Dealer();
-            var players = dealer.DistributeCards();
-       
-            
-            
+            var players = new PlayerListCreator().Players;
+            dealer.DistributeCards(players);
+
+
             for (int round = 1; round <= finalRound; round++) 
             {
-                Console.WriteLine($"\nROUND #{round}\n");
+                DisplayRound(round);
 
                 foreach (var player in players)
                 {
                     DisplayName(player);
                     var card = player.PlayCard();
                     
-                    currentGame.Add(card,player);
-                    
+                    table.Add(card,player);
                 }
 
-                GetCurrentWinner(currentGame);
+                GetCurrentWinner(table);
 
-                RemoveLoser(players);
+                RemoveLosers(players);
 
-                currentGame.Clear();
+                table.Clear();
                 
                 if (round == finalRound)
                 {
@@ -49,19 +48,19 @@ namespace CardGame
             Console.WriteLine($"\n{player.Name}");
         }
 
-        private void GetCurrentWinner(Dictionary<Card,Player> currentGame)
+        private void DisplayRound(int round)
         {
-            var winCard = currentGame.Select(_ => _.Key)
-                                         .OrderByDescending(c => c.Rate)
-                                         .FirstOrDefault();
-
-            var currentWinner = currentGame.Where(pair => pair.Key == winCard)
-                                           .Select(pair => pair.Value)
-                                           .FirstOrDefault();
+            Console.WriteLine($"\nROUND #{round}\n");
+        }
+        private void GetCurrentWinner(Dictionary<Card,Player> table)
+        {
+            var currentWinner = table.
+                FirstOrDefault(_ => _.Key.Rate == table.Keys.Max(c => c.Rate)).Value;
+            
 
             Console.WriteLine($"\n{currentWinner.Name} wins current game");
 
-            currentWinner.TakeCards(currentGame.Select(_ => _.Key).ToList());
+            currentWinner.TakeCards(table.Keys); 
         }
 
         private void GetMatchWinner(List<Player> players)
@@ -72,23 +71,13 @@ namespace CardGame
             Console.WriteLine($"\n{matchWinner.Name} wins this match");
         }
         
-        private void RemoveLoser(List<Player> players)
+        private void RemoveLosers(List<Player> players)
         {
-            if (players.Any(_ => _.CardCount == 0))
+            foreach (var loser in players.Where(_ => _.CardCount == 0).ToList())
             {
-                var losers = players.Where(_ => _.CardCount == 0)
-                                             .Select(_ => _)
-                                             .ToList();
-
-                foreach (var loser in losers)
-                {
-                    players.Remove(loser);
-                    Console.WriteLine($"{loser.Name} left game");
-                }
+                players.Remove(loser);
+                Console.WriteLine($"\n{loser.Name} left game");
             }
         }
-       
-        
-        
     }
 }

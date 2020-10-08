@@ -8,9 +8,6 @@ namespace CardGame
     {
         private readonly Random random = new Random();
 
-        DeckCreator DeckCreator { get; set; } = new DeckCreator();
-        PlayerListCreator PlayersCreator { get; set; } = new PlayerListCreator();
-
         public List<Card> ShuffleDeck(List<Card> deck)
         {
             var shuffledDeck = new List<Card>();
@@ -26,11 +23,10 @@ namespace CardGame
             return shuffledDeck;
         }
         
-        public List<Player> DistributeCards()
+        public List<Player> DistributeCards(List<Player> players)
         {
-            var deck = DeckCreator.Deck;
+            var deck = new DeckCreator().Deck;
             var shuffledDeck = ShuffleDeck(deck);
-            var players = PlayersCreator.Players;
 
             while (shuffledDeck.Count != 0)
             {

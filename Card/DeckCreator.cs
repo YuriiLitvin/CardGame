@@ -1,36 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CardGame
 {
     public class DeckCreator
     {
         public List<Card> Deck { get; set; }
-
+        
         public DeckCreator()
         {
-            this.Deck = this.Create();
+            this.Deck = this.Create(); 
         }
-        
-        public List<Card> Create() 
+
+        private List<Card> Create()
         {
             var deck = new List<Card>();
-            
-            var suits = Enum.GetNames(typeof(Suit));
-            var rankTitles = Enum.GetNames(typeof(Rank));
-            var rates = Enum.GetValues(typeof(Rank));
 
-            foreach (var suit in suits)
+            foreach (Suit suit in Enum.GetValues(typeof(Suit)))
             {
-                for (int index = 0; index < rankTitles.Count(); index++)
+                foreach (Rank rank in Enum.GetValues(typeof(Rank)))
                 {
-                    deck.Add( 
-                    new Card()
-                    {
-                        Face = $"{rankTitles[index]} of {suit}",
-                        Rate = (int) rates.GetValue(index)
-                    }); 
+                    deck.Add(new Card(suit, rank));
                 }
             }
             return deck;
