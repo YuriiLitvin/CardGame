@@ -28,7 +28,7 @@ namespace CardGame
                     table.Add(card,player);
                 }
 
-                GetCurrentWinner(table);
+                ShowCurrentWinner(table);
 
                 RemoveLosers(players);
 
@@ -36,7 +36,7 @@ namespace CardGame
                 
                 if (round == finalRound)
                 {
-                    GetMatchWinner(players);
+                    ShowMatchWinner(players);
                 }
             }
             Console.ReadKey();
@@ -52,7 +52,7 @@ namespace CardGame
         {
             Console.WriteLine($"\nROUND #{round}\n");
         }
-        private void GetCurrentWinner(Dictionary<Card,Player> table)
+        private void ShowCurrentWinner(Dictionary<Card,Player> table)
         {
             var currentWinner = table.
                 FirstOrDefault(_ => _.Key.Rate == table.Keys.Max(c => c.Rate)).Value;
@@ -63,9 +63,9 @@ namespace CardGame
             currentWinner.TakeCards(table.Keys); 
         }
 
-        private void GetMatchWinner(List<Player> players)
+        private void ShowMatchWinner(List<Player> players)
         {
-            var matchWinner = players.OrderByDescending(_ => _.CardCount)
+            var matchWinner = players.OrderByDescending(_ => _.CardsInHand.Count)
                                              .FirstOrDefault();
 
             Console.WriteLine($"\n{matchWinner.Name} wins this match");
@@ -73,7 +73,7 @@ namespace CardGame
         
         private void RemoveLosers(List<Player> players)
         {
-            foreach (var loser in players.Where(_ => _.CardCount == 0).ToList())
+            foreach (var loser in players.Where(_ => _.CardsInHand.Count == 0).ToList())
             {
                 players.Remove(loser);
                 Console.WriteLine($"\n{loser.Name} left game");

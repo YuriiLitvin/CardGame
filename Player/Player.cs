@@ -6,46 +6,41 @@ namespace CardGame
 {
     public class Player
     {
-        private readonly List<Card> cardsInHand  = new List<Card>();
+        public List<Card> CardsInHand { get; set; } = new List<Card>();
 
         public string Name { get; set; }
 
-        public int CardCount { get; set; }
-        
         public Card PlayCard()
         {
             var card = ShowTopCard();
-            return GiveTopCard(card);
+            return GiveCard(card);
         }
 
         private Card ShowTopCard() 
         {
-            var card = cardsInHand.FirstOrDefault();
+            var card = CardsInHand.FirstOrDefault();
             Console.Write($"{card.Rank} of {card.Suit}");
             return card;
         }
 
-        private Card GiveTopCard(Card card)
+        private Card GiveCard(Card card)
         {
-            Console.Write($"\tLeft {cardsInHand.Count} cards\n");
-            cardsInHand.Remove(card);
-            CardCount = cardsInHand.Count;
+            Console.Write($"\tLeft {CardsInHand.Count} cards\n");
+            CardsInHand.Remove(card);
             return card;
         } 
         
         public void TakeCards(Card card) 
         {
-            cardsInHand.Add(card);
-            CardCount = cardsInHand.Count;
+            CardsInHand.Add(card);
         }
         
         public void TakeCards(IEnumerable<Card> gameSet)
         {
             foreach (var card in gameSet)
             {
-                cardsInHand.Add(card);
+                CardsInHand.Add(card);
             }
-            CardCount = cardsInHand.Count;
         }
     
     }
