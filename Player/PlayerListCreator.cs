@@ -6,8 +6,8 @@ namespace CardGame
 {
     public class PlayerListCreator
     {
-        private readonly int playerMinCount = 2;
-        private readonly int playerMaxCount = 10;
+        private readonly int _playerMinCount = 2;
+        private readonly int _playerMaxCount = 10;
 
         private readonly Random random = new Random();
 
@@ -19,7 +19,7 @@ namespace CardGame
         }
         private List<Player> Create()
         {
-            var playerCount = random.Next(playerMinCount, playerMaxCount);
+            var playerCount = random.Next(_playerMinCount, _playerMaxCount);
 
             var players = new List<Player>();
 

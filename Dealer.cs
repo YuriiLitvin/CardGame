@@ -6,7 +6,7 @@ namespace CardGame
 {
     public class Dealer
     {
-        private readonly Random random = new Random();
+        private readonly Random _random = new Random();
 
         public List<Card> ShuffleDeck(List<Card> deck)
         {
@@ -14,10 +14,10 @@ namespace CardGame
 
             while (shuffledDeck.Count < deck.Count)
             {
-                int randomIndex = random.Next(0, deck.Count);
-                if (!shuffledDeck.Contains(deck[randomIndex]))
+                int _randomIndex = _random.Next(0, deck.Count);
+                if (!shuffledDeck.Contains(deck[_randomIndex]))
                 {
-                    shuffledDeck.Add(deck[randomIndex]);
+                    shuffledDeck.Add(deck[_randomIndex]);
                 }
             }
             return shuffledDeck;

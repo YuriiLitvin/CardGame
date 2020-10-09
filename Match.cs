@@ -6,7 +6,7 @@ namespace CardGame
 {
     public class Match
     {
-        private readonly int finalRound = 25;
+        private readonly int _finalRound = 25;
 
         public void Start()
         {
@@ -18,7 +18,7 @@ namespace CardGame
 
 
 
-            for (int round = 1; round <= finalRound; round++) 
+            for (int round = 1; round <= _finalRound; round++) 
             {
                 DisplayRound(round);
 
@@ -36,7 +36,7 @@ namespace CardGame
 
                 table.Clear();
                 
-                if (round == finalRound)
+                if (round == _finalRound)
                 {
                     ShowMatchWinner(players);
                 }
