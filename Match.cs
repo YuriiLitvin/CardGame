@@ -13,7 +13,9 @@ namespace CardGame
             var table = new Dictionary<Card,Player>();
             var dealer = new Dealer();
             var players = new PlayerListCreator().Players;
-            dealer.DistributeCards(players);
+            var deck = new DeckCreator().Deck;
+            dealer.DistributeCards(deck, players);
+
 
 
             for (int round = 1; round <= finalRound; round++) 

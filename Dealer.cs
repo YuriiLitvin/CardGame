@@ -23,9 +23,8 @@ namespace CardGame
             return shuffledDeck;
         }
         
-        public List<Player> DistributeCards(List<Player> players)
+        public List<Player> DistributeCards(List<Card> deck, List<Player> players)
         {
-            var deck = new DeckCreator().Deck;
             var shuffledDeck = ShuffleDeck(deck);
 
             while (shuffledDeck.Count != 0)
